@@ -62,7 +62,10 @@ import ru.geekbrains.base.BaseScreen;
             Gdx.gl.glClearColor(0.5f, 0.7f, 0.8f, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             batch.begin();
-           
+            batch.draw(background, 0, 0, 640, 480);
+            batch.draw(ship, posShip.x, posShip.y,100,100);
+            batch.draw(shot, posShot.x, posShot.y,20,20);
+//        batch.draw(new TextureRegion(img), pos.x, pos.y, pos.x, pos.y, 250, 250, 1, 1, rotate);
             batch.end();
         }
 
