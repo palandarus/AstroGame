@@ -63,15 +63,7 @@ import ru.geekbrains.base.BaseScreen;
         }
 
         private void update(float delta) {
-            touchCalcTMP.set(touch);
-            if(touchCalcTMP.sub(posShip).len()>VLEN) {
-                posShip.add(vShip);
-            }
-            else{
-                vShip.setZero();
-                posShip.set(touch);
-            }
-            posShot.add(vShot);
+            
 //        rotate += 1;
         }
 
