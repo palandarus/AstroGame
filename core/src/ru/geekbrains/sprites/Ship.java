@@ -1,31 +1,40 @@
 package ru.geekbrains.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.geekbrains.base.Sprite;
 import ru.geekbrains.exception.GameException;
 import ru.geekbrains.math.Rect;
+import ru.geekbrains.math.Rnd;
 
 public class Ship extends Sprite {
     private Vector2 touchCalcTMP;
     private Vector2 vShip;
     private Vector2 touch;
-    private float VLEN = 0.001f;
+    private float VLEN = 0.005f;
+    private float STARTX = 0f;
+    private float STARTY = -0.45f;
+    private Rect worldBounds;
 
-    public Ship(Texture region) throws GameException {
-        super(new TextureRegion(region));
+    public Ship(TextureAtlas atlas) throws GameException {
+        super(atlas.findRegion("main_ship"));
         setScale(0.1f);
+        pos.set(STARTX,STARTY);
         touchCalcTMP=new Vector2();
-        vShip=new Vector2(0f,0f);
-        touch=new Vector2();
+        touch=new Vector2(pos);
+        vShip=new Vector2(0f,-0.45f);
+        regions[0]=new TextureRegion(regions[0],0,0,regions[0].getRegionWidth()/2,regions[0].getRegionHeight());
+
     }
 
     @Override
     public void resize(Rect worldBounds) {
-        setHeightProportion(1f);
-//        pos.set(worldBounds.pos);
+        setHeightProportion(0.5f);
+        this.worldBounds=worldBounds;
+
     }
 
     @Override
