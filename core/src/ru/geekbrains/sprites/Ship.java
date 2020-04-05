@@ -26,7 +26,7 @@ public class Ship extends Sprite {
         touchCalcTMP=new Vector2();
         touch=new Vector2(pos);
         vShip=new Vector2(0f,-0.45f);
-        
+
 
     }
 
