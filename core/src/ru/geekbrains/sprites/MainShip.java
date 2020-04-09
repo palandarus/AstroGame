@@ -1,6 +1,8 @@
 package ru.geekbrains.sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -21,6 +23,13 @@ public class MainShip extends Sprite {
     private TextureRegion bulletRegion;
     private Vector2 bulletV;
 
+    private float shootingTimer =0.0f;
+    private float shootingInterval =0.4f;
+
+    Sound bulletSound;
+    Sound laserSound;
+    Sound explosionSound;
+
     private final Vector2 v0;
     private final Vector2 v;
 
@@ -34,6 +43,9 @@ public class MainShip extends Sprite {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
         bulletRegion = atlas.findRegion("bulletMainShip");
+        bulletSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
+        laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
+        explosionSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.wav"));
         bulletV = new Vector2(0, 0.5f);
         v0 = new Vector2(0.5f, 0);
         v = new Vector2();
@@ -56,6 +68,11 @@ public class MainShip extends Sprite {
         if (getRight() > worldBounds.getRight()) {
             setRight(worldBounds.getRight());
             stop();
+        }
+        shootingTimer += delta;
+        if (shootingTimer >= shootingInterval) {
+            shootingTimer = 0;
+            this.shoot();
         }
     }
 
@@ -142,6 +159,8 @@ public class MainShip extends Sprite {
     public void shoot() {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, pos, bulletV, 0.01f, worldBounds, 1);
+        bulletSound.play(0.005f);
+
     }
 
     private void moveRight() {
@@ -154,5 +173,14 @@ public class MainShip extends Sprite {
 
     private void stop() {
         v.setZero();
+    }
+
+    @Override
+    public void dispose() {
+        bulletPool.dispose();
+        bulletSound.dispose();
+        laserSound.dispose();
+        explosionSound.dispose();
+        super.dispose();
     }
 }
