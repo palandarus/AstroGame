@@ -18,7 +18,7 @@ public class Bullet extends Sprite {
     }
 
     public void set(
-            Object owner,
+
             TextureRegion region,
             Vector2 pos0,
             Vector2 v0,
