@@ -98,8 +98,4 @@ public class Sprite extends Rect {
     public boolean isDestroyed() {
         return destroyed;
     }
-
-    public void dispose(){
-        this.dispose();
-    }
 }

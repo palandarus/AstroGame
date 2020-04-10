@@ -1,0 +1,27 @@
+package ru.geekbrains.pool;
+
+import ru.geekbrains.base.SpritesPool;
+import ru.geekbrains.math.Rect;
+import ru.geekbrains.sprites.Enemy;
+
+public class EnemyPool extends SpritesPool<Enemy> {
+
+    private BulletPool bulletPool;
+    private Rect worldBounds;
+
+    public EnemyPool(BulletPool bulletPool, Rect worldBounds) {
+        this.bulletPool = bulletPool;
+        this.worldBounds = worldBounds;
+    }
+
+    @Override
+    protected Enemy newObject() {
+        return new Enemy(bulletPool, worldBounds);
+    }
+
+    @Override
+    public void freeAllDestroyedActiveObjects() {
+        super.freeAllDestroyedActiveObjects();
+//        System.out.println(this.getClass().getName() + " active/free: " + activeObjects.size() + "/" + freeObjects.size());
+    }
+}
