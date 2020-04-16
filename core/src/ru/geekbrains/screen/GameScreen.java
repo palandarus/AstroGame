@@ -21,6 +21,7 @@ import ru.geekbrains.sprites.Bullet;
 import ru.geekbrains.sprites.Enemy;
 import ru.geekbrains.sprites.GameOver;
 import ru.geekbrains.sprites.MainShip;
+import ru.geekbrains.sprites.NewGame;
 import ru.geekbrains.sprites.Star;
 import ru.geekbrains.utils.EnemyEmitter;
 
@@ -38,6 +39,7 @@ public class GameScreen extends BaseScreen {
     private Star[] stars;
     private MainShip mainShip;
     private GameOver gameOver;
+    private NewGame newGame;
 
     private BulletPool bulletPool;
     private EnemyPool enemyPool;
@@ -87,6 +89,7 @@ public class GameScreen extends BaseScreen {
         }
         mainShip.resize(worldBounds);
         gameOver.resize(worldBounds);
+        newGame.resize(worldBounds);
     }
 
     @Override
@@ -143,6 +146,7 @@ public class GameScreen extends BaseScreen {
             }
             mainShip = new MainShip(atlas, bulletPool, explosionPool, laserSound);
             gameOver = new GameOver(atlas);
+            newGame = new NewGame(atlas);
         } catch (GameException e) {
             throw new RuntimeException(e);
         }
@@ -223,6 +227,7 @@ public class GameScreen extends BaseScreen {
                 break;
             case GAME_OVER:
                 gameOver.draw(batch);
+                newGame.draw(batch);
                 break;
         }
         explosionPool.drawActiveSprites(batch);
