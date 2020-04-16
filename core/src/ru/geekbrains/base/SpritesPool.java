@@ -54,6 +54,13 @@ public abstract class SpritesPool<T extends Sprite> {
         }
     }
 
+    public void protocol_10() {
+        for (int i = 0; i < activeObjects.size(); i++) {
+            T sprite = activeObjects.get(i);
+            sprite.destroy();
+        }
+    }
+
     public List<T> getActiveObjects() {
         return activeObjects;
     }
@@ -69,4 +76,6 @@ public abstract class SpritesPool<T extends Sprite> {
         }
         System.out.println(this.getClass().getName() + " active/free: " + activeObjects.size() + "/" + freeObjects.size());
     }
+
+
 }

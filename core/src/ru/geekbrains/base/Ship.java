@@ -88,4 +88,5 @@ public abstract class Ship extends Sprite {
         explosion.set(pos, getHeight());
     }
 
+
 }
