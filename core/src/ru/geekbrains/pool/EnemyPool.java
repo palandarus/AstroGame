@@ -7,21 +7,17 @@ import ru.geekbrains.sprites.Enemy;
 public class EnemyPool extends SpritesPool<Enemy> {
 
     private BulletPool bulletPool;
+    private ExplosionPool explosionPool;
     private Rect worldBounds;
 
-    public EnemyPool(BulletPool bulletPool, Rect worldBounds) {
+    public EnemyPool(BulletPool bulletPool, ExplosionPool explosionPool, Rect worldBounds) {
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.worldBounds = worldBounds;
     }
 
     @Override
     protected Enemy newObject() {
-        return new Enemy(bulletPool, worldBounds);
-    }
-
-    @Override
-    public void freeAllDestroyedActiveObjects() {
-        super.freeAllDestroyedActiveObjects();
-//        System.out.println(this.getClass().getName() + " active/free: " + activeObjects.size() + "/" + freeObjects.size());
+        return new Enemy(bulletPool, explosionPool, worldBounds);
     }
 }

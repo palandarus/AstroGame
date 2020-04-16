@@ -35,10 +35,9 @@ public class EnemyEmitter {
 
     private Rect worldBounds;
     private Sound shootSound;
-    private Sound explosionSound;
     private TextureRegion bulletRegion;
 
-    private float generateInterval = 1.5f;
+    private float generateInterval = 2f;
     private float generateTimer;
 
     private final TextureRegion[] enemySmallRegion;
@@ -51,10 +50,9 @@ public class EnemyEmitter {
 
     private final EnemyPool enemyPool;
 
-    public EnemyEmitter(TextureAtlas atlas, EnemyPool enemyPool, Rect worldBounds, Sound shootSound, Sound explosionSound) {
+    public EnemyEmitter(TextureAtlas atlas, EnemyPool enemyPool, Rect worldBounds, Sound shootSound) {
         this.worldBounds = worldBounds;
         this.shootSound = shootSound;
-        this.explosionSound = explosionSound;
         this.enemyPool = enemyPool;
         this.bulletRegion = atlas.findRegion("bulletEnemy");
         TextureRegion enemy0 = atlas.findRegion("enemy0");
@@ -74,7 +72,7 @@ public class EnemyEmitter {
             generateTimer = 0f;
             Enemy enemy = enemyPool.obtain();
             float type = (float) Math.random();
-            if (type < 0.6f) {
+            if (type < 0.5f) {
                 enemy.set(
                         enemySmallRegion,
                         enemySmallV,
@@ -84,11 +82,10 @@ public class EnemyEmitter {
                         ENEMY_SMALL_DAMAGE,
                         ENEMY_SMALL_RELOAD_INTERVAL,
                         shootSound,
-                        explosionSound,
                         ENEMY_SMALL_HP,
                         ENEMY_SMALL_HEIGHT
                 );
-            } else if (type < 0.85f) {
+            } else if (type < 0.8f) {
                 enemy.set(
                         enemyMediumRegion,
                         enemyMediumV,
@@ -98,7 +95,6 @@ public class EnemyEmitter {
                         ENEMY_MEDIUM_DAMAGE,
                         ENEMY_MEDIUM_RELOAD_INTERVAL,
                         shootSound,
-                        explosionSound,
                         ENEMY_MEDIUM_HP,
                         ENEMY_MEDIUM_HEIGHT
                 );
@@ -112,7 +108,6 @@ public class EnemyEmitter {
                         ENEMY_BIG_DAMAGE,
                         ENEMY_BIG_RELOAD_INTERVAL,
                         shootSound,
-                        explosionSound,
                         ENEMY_BIG_HP,
                         ENEMY_BIG_HEIGHT
                 );
