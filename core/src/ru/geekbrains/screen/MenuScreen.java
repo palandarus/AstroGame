@@ -2,7 +2,6 @@ package ru.geekbrains.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -27,8 +26,6 @@ public class MenuScreen extends BaseScreen {
 
     private TextureAtlas atlas;
 
-
-
     private Star[] stars;
     private ButtonExit buttonExit;
     private ButtonPlay buttonPlay;
@@ -42,7 +39,6 @@ public class MenuScreen extends BaseScreen {
         super.show();
         bg = new Texture("textures/bg.png");
         atlas = new TextureAtlas(Gdx.files.internal("textures/menuAtlas.tpack"));
-
         initSprites();
     }
 
