@@ -25,6 +25,7 @@ import ru.geekbrains.sprites.Enemy;
 import ru.geekbrains.sprites.GameOver;
 import ru.geekbrains.sprites.MainShip;
 import ru.geekbrains.sprites.Star;
+import ru.geekbrains.sprites.TracingStar;
 import ru.geekbrains.utils.EnemyEmitter;
 
 public class GameScreen extends BaseScreen {
@@ -43,7 +44,7 @@ public class GameScreen extends BaseScreen {
 
     private TextureAtlas atlas;
 
-    private Star[] stars;
+    private TracingStar[] stars;
     private MainShip mainShip;
     private GameOver gameOver;
     private ButtonNewGame buttonNewGame;
@@ -128,7 +129,7 @@ public class GameScreen extends BaseScreen {
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         background.resize(worldBounds);
-        for (Star star : stars) {
+        for (TracingStar star : stars) {
             star.resize(worldBounds);
         }
         mainShip.resize(worldBounds);
@@ -189,11 +190,12 @@ public class GameScreen extends BaseScreen {
     private void initSprites() {
         try {
             background = new Background(bg);
-            stars = new Star[STAR_COUNT];
-            for (int i = 0; i < STAR_COUNT; i++) {
-                stars[i] =  new Star(atlas);
-            }
+            stars = new TracingStar[STAR_COUNT];
             mainShip = new MainShip(atlas, bulletPool, explosionPool, laserSound);
+            for (int i = 0; i < STAR_COUNT; i++) {
+                stars[i] =  new TracingStar(atlas,mainShip.v);
+            }
+
             gameOver = new GameOver(atlas);
             buttonNewGame = new ButtonNewGame(atlas, this);
         } catch (GameException e) {
