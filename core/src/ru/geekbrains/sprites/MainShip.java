@@ -34,7 +34,7 @@ public class MainShip extends Ship {
         bulletPos = new Vector2();
         v0 = new Vector2(0.5f, 0);
         v = new Vector2();
-        reloadInterval = 0.2f;
+        reloadInterval = 0.4f;
         reloadTimer = reloadInterval;
         bulletHeight = 0.01f;
         damage = 1;
@@ -158,5 +158,20 @@ public class MainShip extends Ship {
 
     private void stop() {
         v.setZero();
+    }
+
+    public void reset() {
+        stop();
+        setHeightProportion(SHIP_HEIGHT);
+        setLeft(worldBounds.getHalfWidth());
+        setBottom(worldBounds.getBottom() + BOTTOM_MARGIN);
+        hp = HP;
+        pos.x = worldBounds.pos.x;
+        pressedLeft = false;
+        pressedRight = false;
+
+        leftPointer=INVALID_POINTER;
+        rightPointer=INVALID_POINTER;
+        flushDestroy();
     }
 }

@@ -21,6 +21,7 @@ import ru.geekbrains.sprites.Bullet;
 import ru.geekbrains.sprites.Enemy;
 import ru.geekbrains.sprites.GameOver;
 import ru.geekbrains.sprites.MainShip;
+import ru.geekbrains.sprites.ButtonNewGame;
 import ru.geekbrains.sprites.Star;
 import ru.geekbrains.utils.EnemyEmitter;
 
@@ -38,6 +39,7 @@ public class GameScreen extends BaseScreen {
     private Star[] stars;
     private MainShip mainShip;
     private GameOver gameOver;
+    private ButtonNewGame buttonNewGame;
 
     private BulletPool bulletPool;
     private EnemyPool enemyPool;
@@ -87,6 +89,7 @@ public class GameScreen extends BaseScreen {
         }
         mainShip.resize(worldBounds);
         gameOver.resize(worldBounds);
+        buttonNewGame.resize(worldBounds);
     }
 
     @Override
@@ -123,6 +126,7 @@ public class GameScreen extends BaseScreen {
         if (state == State.PLAYING) {
             mainShip.touchDown(touch, pointer, button);
         }
+        else if(state==State.GAME_OVER) buttonNewGame.touchDown(touch,pointer,pointer);
         return false;
     }
 
@@ -131,6 +135,7 @@ public class GameScreen extends BaseScreen {
         if (state == State.PLAYING) {
             mainShip.touchUp(touch, pointer, button);
         }
+        else if(state==State.GAME_OVER) buttonNewGame.touchUp(touch,pointer,pointer);
         return false;
     }
 
@@ -143,6 +148,7 @@ public class GameScreen extends BaseScreen {
             }
             mainShip = new MainShip(atlas, bulletPool, explosionPool, laserSound);
             gameOver = new GameOver(atlas);
+            buttonNewGame = new ButtonNewGame(atlas, this);
         } catch (GameException e) {
             throw new RuntimeException(e);
         }
@@ -223,9 +229,24 @@ public class GameScreen extends BaseScreen {
                 break;
             case GAME_OVER:
                 gameOver.draw(batch);
+                buttonNewGame.draw(batch);
                 break;
         }
         explosionPool.drawActiveSprites(batch);
         batch.end();
+    }
+
+    public void startNewGame(){
+        state=State.PLAYING;
+        resetAllActiveObjects();
+//        draw();
+    }
+
+    private void resetAllActiveObjects() {
+    mainShip.reset();
+    enemyPool.protocol_10();
+    bulletPool.protocol_10();
+    explosionPool.protocol_10();
+
     }
 }
